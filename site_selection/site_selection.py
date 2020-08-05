@@ -1,6 +1,8 @@
 """
 Within distance d, choose p cities out of n cites that cover the most population
 
+City contains coordinate (x, y) and population
+
 Use greedy algorithm
 Always choose the city has the most population. If equal, choose the one with smaller id
 """
@@ -9,7 +11,7 @@ import os
 import sys
 
 
-class LocationModel:
+class SiteSelectionModel:
     def __init__(self, n, p, d, cities):
         self.num_city = n
         self.num_chosen_city = p
@@ -36,7 +38,7 @@ def process(file_input):
             cities.append(City(index, temp_city[0], temp_city[1], temp_city[2]))
             index += 1
 
-        return LocationModel(n, p, d, cities)
+        return SiteSelectionModel(n, p, d, cities)
 
 
 def calculate_distance(city1, city2):
@@ -61,14 +63,14 @@ def find_city_neighbors(cities, distance_limit):
     return city_neighbors
 
 
-def solution(location_model):
+def solution(site_selection_model):
     chosen_cities = []
     already_covered = []
     sum_covered_population = 0
 
-    city_neighbors = find_city_neighbors(location_model.cities, location_model.distance_limit)
+    city_neighbors = find_city_neighbors(site_selection_model.cities, site_selection_model.distance_limit)
 
-    while len(chosen_cities) < location_model.num_chosen_city:
+    while len(chosen_cities) < site_selection_model.num_chosen_city:
         max_covered_population = 0
         chosen_city = None
 
